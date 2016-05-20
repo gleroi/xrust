@@ -11,13 +11,11 @@ fn test_no_allergies_means_not_allergic() {
 }
 
 #[test]
-#[ignore]
 fn test_is_allergic_to_eggs() {
     assert_eq!(true, Allergies::new(1).is_allergic_to(&Allergen::Eggs));
 }
 
 #[test]
-#[ignore]
 fn test_has_the_right_allergies() {
     let allergies = Allergies::new(5);
     assert_eq!(true, allergies.is_allergic_to(&Allergen::Eggs));
@@ -26,28 +24,25 @@ fn test_has_the_right_allergies() {
 }
 
 #[test]
-#[ignore]
 fn test_no_allergies_at_all() {
     assert_eq!(Vec::<Allergen>::new(), Allergies::new(0).allergies());
 }
 
 #[test]
-#[ignore]
 fn test_just_to_peanuts() {
     assert_eq!(vec![Allergen::Peanuts], Allergies::new(2).allergies());
 }
 
 #[test]
-#[ignore]
 fn test_allergic_to_everything() {
     assert_eq!(vec![Allergen::Eggs, Allergen::Peanuts, Allergen::Shellfish,
                     Allergen::Strawberries, Allergen::Tomatoes, Allergen::Chocolate,
                     Allergen::Pollen, Allergen::Cats],
         Allergies::new(255).allergies());
 }
-
+ 
 #[test]
-#[ignore]
 fn test_ignore_non_allergen_score_parts() {
     assert_eq!(vec![Allergen::Eggs], Allergies::new(257).allergies());
 }
+
