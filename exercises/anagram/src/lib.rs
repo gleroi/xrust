@@ -11,14 +11,18 @@ fn as_sorted_string(word : &str) -> String {
 
 pub fn anagrams_for<'a>(word : &str, candidates : &[&'a str]) -> Vec<&'a str> {
     let mut anagrams : Vec<&str> = vec![];
-    let sorted = as_sorted_string(word);
+    let lower_word = word.to_lowercase();
+    let sorted = as_sorted_string(&lower_word);
     
     for candidate in candidates {
         if candidate.len() == sorted.len() {
-            let sorted_candidate = as_sorted_string(candidate);
-            println!("candidate: {}", candidate);
-            if sorted_candidate == sorted  {
-                anagrams.push(candidate);
+            let lower_candidate = candidate.to_lowercase();
+            if lower_word != lower_candidate {
+                let sorted_candidate = as_sorted_string(&lower_candidate);
+                println!("{} {} {}", sorted, candidate, sorted_candidate);
+                if sorted_candidate == sorted  {
+                    anagrams.push(candidate);
+                }
             }
         }
     }
