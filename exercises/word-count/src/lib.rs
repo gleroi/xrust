@@ -4,7 +4,6 @@ use std::str::Chars;
 struct SplitWords<'a> {
     phrase: &'a str,
     current_position: usize,
-    current: Chars<'a>,
 }
 
 impl <'a> SplitWords<'a> {
@@ -17,7 +16,6 @@ fn split_words(phrase: &str) -> SplitWords {
     return SplitWords {
         phrase: phrase,
         current_position: 0,
-        current: phrase.chars(),
     };
 }
 
