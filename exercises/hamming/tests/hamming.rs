@@ -16,25 +16,21 @@ fn test_complete_hamming_distance_in_small_strand() {
 }
 
 #[test]
-#[ignore]
 fn test_small_hamming_distance_in_the_middle_somewhere() {
     assert_eq!(dna::hamming_distance("GGACG", "GGTCG").unwrap(), 1);
 }
 
 #[test]
-#[ignore]
 fn test_larger_distance() {
     assert_eq!(dna::hamming_distance("ACCAGGG", "ACTATGG").unwrap(), 2);
 }
 
 #[test]
-#[ignore]
 fn test_first_string_is_longer() {
     assert_eq!(dna::hamming_distance("AAA", "AA"), Result::Err("inputs of different length"));
 }
 
 #[test]
-#[ignore]
 fn test_second_string_is_longer() {
     assert_eq!(dna::hamming_distance("A", "AA"), Result::Err("inputs of different length"));
 }
