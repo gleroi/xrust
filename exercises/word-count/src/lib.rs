@@ -4,19 +4,38 @@ use std::str::Chars;
 struct SplitWords<'a> {
     phrase: &'a str,
     current_position: usize,
+    current_char: Option<char>,
+    iterator: Chars<'a>
 }
 
 impl <'a> SplitWords<'a> {
     fn is_word_separator(letter : char) -> bool {
         letter.is_whitespace() || (!letter.is_alphabetic() && !letter.is_numeric())
     }
+
+    fn is_position_valid(&self) -> bool {
+        return self.current_position < self.phrase.len();
+    }
+
+    fn next_char(&mut self) {
+        self.current_char = self.iterator.next();
+        self.current_position += 1;
+    }
+    
+    fn current_char(&self) -> Option<char> {
+        return self.current_char;
+    }
 }
 
 fn split_words(phrase: &str) -> SplitWords {
-    return SplitWords {
+    let mut split = SplitWords {
         phrase: phrase,
         current_position: 0,
+        current_char: None,
+        iterator: phrase.chars(),
     };
+    split.current_char = split.iterator.next();
+    return split;
 }
 
 impl <'a> Iterator for SplitWords<'a> {
@@ -27,26 +46,27 @@ impl <'a> Iterator for SplitWords<'a> {
         if self.current_position >= phrase_len {
             return None;
         }
-        println!("current_position: {}", self.current_position);
-        while let Some(letter) = self.current.next() {
-            self.current_position += 1;
-            if !SplitWords::is_word_separator(letter) {
+        while let Some(letter) = self.current_char() {
+            if SplitWords::is_word_separator(letter) {
+                self.next_char();
+            }
+            else {
                 break;
             }
         }
         println!("current_position: {}", self.current_position);
         let start : usize = self.current_position;
-        while let Some(letter) = self.current.next() {
-            self.current_position += 1;
-            println!("current_position: {}, letter: {}", self.current_position, letter);
-            if SplitWords::is_word_separator(letter) {
+        while let Some(letter) = self.current_char()  {
+            if !SplitWords::is_word_separator(letter) {
+                self.next_char();
+            }
+            else {
                 break;
             }
         }
-        println!("start: {}, current_position: {}", start, self.current_position);
+
         if self.current_position > start {
             let word = &self.phrase[start..(self.current_position)];
-            println!("found word: {},", word);
             return Some(word);
         }
         return None;
