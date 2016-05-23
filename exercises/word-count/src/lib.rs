@@ -13,10 +13,6 @@ impl <'a> SplitWords<'a> {
         letter.is_whitespace() || (!letter.is_alphabetic() && !letter.is_numeric())
     }
 
-    fn is_position_valid(&self) -> bool {
-        return self.current_position < self.phrase.len();
-    }
-
     fn next_char(&mut self) {
         self.current_char = self.iterator.next();
         self.current_position += 1;
@@ -84,7 +80,7 @@ pub fn word_count(phrase: &str) -> HashMap<String, u32> {
     return counts;
 }
 
-/*
+#[allow(dead_code)]
 mod using_split_iterator {
     
     use std::collections::HashMap;
@@ -110,4 +106,4 @@ mod using_split_iterator {
         return counts;
     }
 }
-*/
+
